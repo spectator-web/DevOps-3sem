@@ -1,41 +1,63 @@
+using Npgsql;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+var connString = builder.Configuration.GetConnectionString("Default")
+    ?? throw new InvalidOperationException("Connection string 'Default' is not configured.");
+
+builder.Services.AddNpgsqlDataSource(connString);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseCors();
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+app.MapGet("/api/products", async (NpgsqlDataSource dataSource) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var products = new List<ProductDto>();
 
-app.MapGet("/weatherforecast", () =>
+    await using var command = dataSource.CreateCommand(
+        "SELECT id, name, description, unit FROM products ORDER BY id");
+
+    await using var reader = await command.ExecuteReaderAsync();
+
+    while (await reader.ReadAsync())
+    {
+        products.Add(new ProductDto(
+            reader.GetInt32(0),
+            reader.GetString(1),
+            reader.IsDBNull(2) ? null : reader.GetString(2),
+            reader.GetString(3)
+        ));
+    }
+
+    return Results.Ok(products);
+});
+
+app.MapPost("/api/products", async (NpgsqlDataSource dataSource, CreateProductDto input) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    await using var command = dataSource.CreateCommand(
+        "INSERT INTO products(name, description, unit) VALUES (@name, @description, @unit) RETURNING id");
+
+    command.Parameters.AddWithValue("name", input.Name);
+    command.Parameters.AddWithValue("description", (object?)input.Description ?? DBNull.Value);
+    command.Parameters.AddWithValue("unit", input.Unit);
+
+    var id = (int)(await command.ExecuteScalarAsync())!;
+
+    return Results.Created($"/api/products/{id}", new { Id = id });
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+record ProductDto(int Id, string Name, string? Description, string Unit);
+record CreateProductDto(string Name, string? Description, string Unit);

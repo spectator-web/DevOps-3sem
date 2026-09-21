@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\backend\\LifePilot.Api\\LifePilot.Api.csproj": {}
+    "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\life-pilot\\backend\\LifePilot.Api\\LifePilot.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\backend\\LifePilot.Api\\LifePilot.Api.csproj": {
+    "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\life-pilot\\backend\\LifePilot.Api\\LifePilot.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\backend\\LifePilot.Api\\LifePilot.Api.csproj",
+        "projectUniqueName": "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\life-pilot\\backend\\LifePilot.Api\\LifePilot.Api.csproj",
         "projectName": "LifePilot.Api",
-        "projectPath": "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\backend\\LifePilot.Api\\LifePilot.Api.csproj",
+        "projectPath": "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\life-pilot\\backend\\LifePilot.Api\\LifePilot.Api.csproj",
         "packagesPath": "C:\\Users\\nikit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\backend\\LifePilot.Api\\obj\\",
+        "outputPath": "C:\\Users\\nikit\\OneDrive\\Desktop\\proga_main\\3sem\\DevOps\\DevOps-3sem\\life-pilot\\backend\\LifePilot.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -56,6 +56,14 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.12, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[10.0.3, )"
+            },
+            "Npgsql.DependencyInjection": {
+              "target": "Package",
+              "version": "[10.0.3, )"
             }
           },
           "imports": [
