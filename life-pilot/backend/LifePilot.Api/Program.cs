@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 
 var connString = builder.Configuration.GetConnectionString("Default")
     ?? throw new InvalidOperationException("Connection string 'Default' is not configured.");
-Console.WriteLine($">>> CONN: {connString}");
+
 builder.Services.AddNpgsqlDataSource(connString);
 
 var app = builder.Build();

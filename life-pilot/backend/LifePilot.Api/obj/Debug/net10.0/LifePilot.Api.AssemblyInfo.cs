@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LifePilot.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5267383a0b959b0f4fce32254cfccc3bf9faa476")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df235619ec44fda77b27becb1615898cc007d952")]
 [assembly: System.Reflection.AssemblyProductAttribute("LifePilot.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LifePilot.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
